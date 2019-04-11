@@ -21,7 +21,10 @@ with picamera.PiCamera() as camera:
 
     start = time.time()
     ## Set Resolution
-    camera.resolution = (2592,1944)
+    ## Camera Version 1
+    # camera.resolution = (2592,1944)
+    ## Camera Version 2
+    camera.resolution = (3280,2464)
     print("time to set resolution: ",time.time() - start);
 
     ## Set framerate and iso
