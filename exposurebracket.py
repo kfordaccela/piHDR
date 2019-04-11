@@ -26,7 +26,7 @@ with picamera.PiCamera() as camera:
 
     ## Set framerate and iso
     isoSet = time.time()
-    camera.framerate = 30 
+    camera.framerate = 15 
     camera.iso = 200
     # camera.start_preview()
     print("time to set iso: ",time.time() - isoSet);
