@@ -62,11 +62,11 @@ with picamera.PiCamera() as camera:
     camera.shutter_speed = int(baseExposure/2)
     camera.capture('ldr_04.jpg')
     #0.003125s exposure 
-    #camera.shutter_speed = int(baseExposure/4)
-    #camera.capture('ldr_05.jpg')
+    camera.shutter_speed = int(baseExposure/4)
+    camera.capture('ldr_05.jpg')
     #0.0008s exposure
-    #camera.shutter_speed = int(baseExposure/6)
-    #camera.capture('ldr_06.jpg')
+    camera.shutter_speed = int(baseExposure/6)
+    camera.capture('ldr_06.jpg')
     finish = time.time()
 print("Captured images in: ",(finish-startCatputer))
 
