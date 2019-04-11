@@ -33,6 +33,9 @@ falsecolor -s 20000 -log 3 -ip ${dir}.pic | ra_tiff -z - ${dir}_f.tif &
 #create a tone mapped luminance photo
 pcond ${dir}.pic | ra_tiff -z - ${dir}.tif &
 
+#create a jpg version of the photo
+
+
 # wait for the three background analysis processes above to complete. 
 wait
  
