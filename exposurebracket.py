@@ -20,7 +20,6 @@ class hdrCamera:
       self.camera = picamera.PiCamera()
       self.baseExposure = 0
       self.baseIso = baseIso
-      print("this is the constructor method")
       if not baseIso in self.isos:
 	print("Iso ",baseIso," is not a valid starting iso please use 60,100,200,400,800")
     ## Just a test
@@ -68,8 +67,6 @@ def main():
   camera = picamera.PiCamera()
   ## Basic Settings
   # camera.exposure_mode = 'off'
-  camera.awb_mode = 'off'
-  camera.awb_gains = (1.8,1.8)
 
   start = time.time()
 
