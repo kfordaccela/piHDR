@@ -22,6 +22,24 @@ class hdrCamera:
       self.baseIso = baseIso
       if not baseIso in self.isos:
 	print("Iso ",baseIso," is not a valid starting iso please use 60,100,200,400,800")
+    # This allows for use to detect the camera for optomal resolution
+    # if we don't get the module correct then we may loose some
+    # resolution from the camera thout could be used
+    def detectCamera(self):
+  	print("Camera Version: ",self.camera.revision)
+	## Camera Version 1
+  	if (self.camera.revision).upper() == "OV5647":
+		print("Found Camera Version 1")
+  		self.camera.resolution = (2592,1944)
+	try:
+  		## Camera Version 2
+  		if (self.camera.revision).upper() == "IMX219":
+			print("Found Camera Version 2")
+  			self.camera.resolution = (3280,2464)
+  			# self.camera.resolution = (2592,1944)
+	except:
+		print("Camera v2 found however GPU ram needs to be set to 256")
+	# print("detecting camera")
     ## Just a test
     def takePhoto(self):
         print("Hello World")
@@ -56,12 +74,18 @@ class hdrCamera:
 		self.camera.framerate = 15
 	if self.fpsCalc < 15:
 		self.camera.framerate = self.fpsCalc
-	checkExposure();
+	checkExposure()
 	
 def main():
   takeImages = hdrCamera("hello there",200)
   takeImages.takePhoto()
   takeImages.initCamera()
+  # print("Camera Version: ",camera.revision)
+  print("Camera Version: ",takeImages.detectCamera())
+  ## Camera Version 1
+  # camera.resolution = (2592,1944)
+  ## Camera Version 2
+  # camera.resolution = (3280,2464)
 '''
   #with picamera.PiCamera() as camera:
   camera = picamera.PiCamera()
@@ -76,11 +100,6 @@ def main():
   print("time to set iso: ",time.time() - isoSet)
 	
   ## Set Resolution
-  print("Camera Version: ",camera.revision)
-  ## Camera Version 1
-  camera.resolution = (2592,1944)
-  ## Camera Version 2
-  # camera.resolution = (3280,2464)
   print("time to set resolution: ",time.time() - start)
 
   ## Wait for things to stabelize and then output shutter speed
