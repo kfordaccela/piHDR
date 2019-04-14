@@ -12,7 +12,8 @@ from fractions import Fraction
 
 class hdrCamera:
     # camera = picamera.PiCamera()
-    def __init__(self,name,baseIso):
+    def __init__(self,name):
+      self.baseIso = 200;
       # list of acceptable ISO's
       self.isos = [60,100,200,400,800]
       self.name = name
@@ -43,10 +44,14 @@ class hdrCamera:
 	self.baseExposure = self.baseExposure * 1000000
 	self.fpsCalc = 1/self.baseExposure
 	# Adjust the iso if possable
+	if self.fpsCalc > 60:
+		self.camera.iso = baseIso/4
 	if self.fpsCalc > 30:
 		self.camera.iso = baseIso/2
-	if self.fpsCalc < 5:
+	if self.fpsCalc < 7.5:
 		self.camera.iso = baseIso*2 
+	if self.fpsCalc < 3.75:
+		self.camera.iso = baseIso*4
 	# Set framerate
 	if self.fpsCalc >= 15:
 		self.camera.framerate = 15
