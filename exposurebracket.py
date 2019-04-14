@@ -31,7 +31,7 @@ class hdrCamera:
 	#camera.awb_mode = 'off'
 	self.camera.awb_mode = 'off'
 	self.camera.awb_gains = (1.8,1.8)
-	self.camera.framerate = 10.100
+	self.camera.framerate = 15
 	self.camera.iso = 200
 	print("hello there")
     def checkExposure(self):
@@ -72,7 +72,6 @@ def main():
 
   ## Set framerate and iso
   isoSet = time.time()
-  camera.framerate = 10.100 
   # camera.start_preview()
   print("time to set iso: ",time.time() - isoSet)
 	
