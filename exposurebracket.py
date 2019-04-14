@@ -73,7 +73,6 @@ def main():
   ## Set framerate and iso
   isoSet = time.time()
   camera.framerate = 10.100 
-  camera.iso = 200
   # camera.start_preview()
   print("time to set iso: ",time.time() - isoSet)
 	
