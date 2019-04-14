@@ -11,16 +11,53 @@ from fractions import Fraction
 # to set the fram rate correctly for the camera prior to using these exposures.
 
 class hdrCamera:
-    def __init__(self,name):
+    # camera = picamera.PiCamera()
+    def __init__(self,name,baseIso):
+      # list of acceptable ISO's
+      self.isos = [60,100,200,400,800]
       self.name = name
+      self.camera = picamera.PiCamera()
+      self.baseExposure = 0
+      self.baseIso = baseIso
       print("this is the constructor method")
+      if not baseIso in self.isos:
+	print("Iso ",baseIso," is not a valid starting iso please use 60,100,200,400,800")
     ## Just a test
-    # def takePhoto(frameRate,sSpeed,captureFile):
-    #    print("Hello World");
+    def takePhoto(self):
+        print("Hello World")
     ## Define a camera
-
+    def initCamera(self):
+	#camera = picamera.PiCamera()
+	#camera.awb_mode = 'off'
+	self.camera.awb_mode = 'off'
+	self.camera.awb_gains = (1.8,1.8)
+	self.camera.framerate = 10.100
+	self.camera.iso = 200
+	print("hello there")
+    def checkExposure(self):
+	self.camera.start_preview()
+	sleep(2)
+	self.baseExposure = self.camera.exposure_speed()
+	print("base exposure found: ",baseExposure)
+    def convertMicroSeconds(self):
+	self.baseExposure = self.baseExposure * 1000000
+	self.fpsCalc = 1/self.baseExposure
+	# Adjust the iso if possable
+	if self.fpsCalc > 30:
+		self.camera.iso = baseIso/2
+	if self.fpsCalc < 5:
+		self.camera.iso = baseIso*2 
+	# Set framerate
+	if self.fpsCalc >= 15:
+		self.camera.framerate = 15
+	if self.fpsCalc < 15:
+		self.camera.framerate = self.fpsCalc
+	
 def main():
-  takePhoto = hdrCamera("hi")
+  takeImages = hdrCamera("hello there",200)
+  takeImages.takePhoto()
+  takeImages.initCamera()
+'''
   #with picamera.PiCamera() as camera:
   camera = picamera.PiCamera()
   ## Basic Settings
@@ -80,7 +117,6 @@ def main():
   camera.capture('ldr_06.jpg')
   finish = time.time()
   print("Captured images in: ",(finish-startCatputer))
-
+'''
 if __name__ == "__main__":
 	main()
-
