@@ -42,6 +42,10 @@ class hdrCamera:
     ## Just a test
     def takePhoto(self):
         print("Hello World")
+    ## Take bracket
+    def takeBracket(self,imgCount,imgSteps):
+        for x < imgCount:
+            print "hello bracket take"
     ## Define a camera
     def initCamera(self):
         #camera = picamera.PiCamera()
