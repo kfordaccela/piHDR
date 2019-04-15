@@ -13,69 +13,68 @@ from fractions import Fraction
 class hdrCamera:
     # camera = picamera.PiCamera()
     def __init__(self,name,baseIso):
-      self.baseIso = 200;
-      # list of acceptable ISO's
-      self.isos = [60,100,200,400,800]
-      self.name = name
-      self.camera = picamera.PiCamera()
-      self.baseExposure = 0
-      self.baseIso = baseIso
-      if not baseIso in self.isos:
-	print("Iso ",baseIso," is not a valid starting iso please use 60,100,200,400,800")
-    # This allows for use to detect the camera for optomal resolution
-    # if we don't get the module correct then we may loose some
-    # resolution from the camera thout could be used
+        self.baseIso = 200;
+        # list of acceptable ISO's
+        self.isos = [60,100,200,400,800]
+        self.name = name
+        self.camera = picamera.PiCamera()
+        self.baseExposure = 0
+        self.baseIso = baseIso
+        if not baseIso in self.isos:
+            print("Iso ",baseIso," is not a valid starting iso please use 60,100,200,400,800")
+        # This allows for use to detect the camera for optomal resolution
+        # if we don't get the module correct then we may loose some
+        # resolution from the camera thout could be used
     def detectCamera(self):
-  	print("Camera Version: ",self.camera.revision)
-	## Camera Version 1
-  	if (self.camera.revision).upper() == "OV5647":
-		print("Found Camera Version 1")
-  		self.camera.resolution = (2592,1944)
-	try:
-  		## Camera Version 2
-  		if (self.camera.revision).upper() == "IMX219":
-			print("Found Camera Version 2")
-  			self.camera.resolution = (3280,2464)
-  			# self.camera.resolution = (2592,1944)
-	except:
-		print("Camera v2 found however GPU ram needs to be set to 256")
-	# print("detecting camera")
+        print("Camera Version: ",self.camera.revision)
+        ## Camera Version 1
+        if (self.camera.revision).upper() == "OV5647":
+            print("Found Camera Version 1")
+            self.camera.resolution = (2592,1944)
+        try:
+            ## Camera Version 2
+            if (self.camera.revision).upper() == "IMX219":
+                print("Found Camera Version 2")
+                self.camera.resolution = (3280,2464)
+                # self.camera.resolution = (2592,1944)
+        except:
+            print("Camera v2 found however GPU ram needs to be set to 256")
+	    # print("detecting camera")
     ## Just a test
     def takePhoto(self):
         print("Hello World")
     ## Define a camera
     def initCamera(self):
-	#camera = picamera.PiCamera()
-	#camera.awb_mode = 'off'
-	self.camera.awb_mode = 'off'
-	self.camera.awb_gains = (1.8,1.8)
-	self.camera.framerate = 15
-	self.camera.iso = 200
-	print("hello there")
+        #camera = picamera.PiCamera()
+        #camera.awb_mode = 'off'
+        self.camera.awb_mode = 'off'
+        self.camera.awb_gains = (1.8,1.8)
+        self.camera.framerate = 15
+        self.camera.iso = 200
+        print("hello there")
     def checkExposure(self):
-	self.camera.start_preview()
-	sleep(2)
-	self.baseExposure = self.camera.exposure_speed()
-	print("base exposure found: ",baseExposure)
+        self.camera.start_preview()
+        sleep(2)
+        self.baseExposure = self.camera.exposure_speed()
+        print("base exposure found: ",baseExposure)
     def convertMicroSeconds(self):
-	self.baseExposure = self.baseExposure * 1000000
-	self.fpsCalc = 1/self.baseExposure
-	# Adjust the iso if possable
-	if self.fpsCalc > 60:
-		self.camera.iso = baseIso/4
-	if self.fpsCalc > 30:
-		self.camera.iso = baseIso/2
-	if self.fpsCalc < 7.5:
-		self.camera.iso = baseIso*2 
-	if self.fpsCalc < 3.75:
-		self.camera.iso = baseIso*4
-	# Set framerate
-	if self.fpsCalc >= 15:
-		self.camera.framerate = 15
-	if self.fpsCalc < 15:
-		self.camera.framerate = self.fpsCalc
-	checkExposure()
-	
+        self.baseExposure = self.baseExposure * 1000000
+        self.fpsCalc = 1/self.baseExposure
+        # Adjust the iso if possable
+        if self.fpsCalc > 60:
+            self.camera.iso = baseIso/4
+        if self.fpsCalc > 30:
+            self.camera.iso = baseIso/2
+        if self.fpsCalc < 7.5:
+            self.camera.iso = baseIso*2 
+        if self.fpsCalc < 3.75:
+            self.camera.iso = baseIso*4
+        # Set framerate
+        if self.fpsCalc >= 15:
+            self.camera.framerate = 15
+        if self.fpsCalc < 15:
+            self.camera.framerate = self.fpsCalc
+        checkExposure()	
 def main():
   takeImages = hdrCamera("hello there",200)
   takeImages.takePhoto()
