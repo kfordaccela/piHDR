@@ -27,18 +27,17 @@ class hdrCamera:
         # resolution from the camera thout could be used
     def detectCamera(self):
         print("Camera Version: ",self.camera.revision)
-        ## Camera Version 1
-        if (self.camera.revision).upper() == "OV5647":
-            print("Found Camera Version 1")
-            self.camera.resolution = (2592,1944)
-        try:
-            ## Camera Version 2
-            if (self.camera.revision).upper() == "IMX219":
-                print("Found Camera Version 2")
-                self.camera.resolution = (3280,2464)
-                # self.camera.resolution = (2592,1944)
-        except:
-            print("Camera v2 found however GPU ram needs to be set to 256")
+        # if the camera is version 2 attempt to use the better resolution
+        if (camera.revision).upper() == "IMX219":
+            try:
+            camera.resolution = (3280,2464)
+            except:
+            print("Review readme for change in memory split to full support Camera v2")
+            print("Resolution kept at 2592x1944")
+                camera.resolution = (2592,1944)
+        else: 
+        #(camera.revision).upper() <> "IMX219":
+            camera.resolution = (2592,1944)
 	    # print("detecting camera")
     ## Just a test
     def takePhoto(self):
