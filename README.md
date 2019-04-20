@@ -20,6 +20,7 @@ Make sure the pi is set to auto login to the user with the crontab file.
 
 ## Setting up dependencies
 Dependencies include:
+* imagemagic ```sudo apt-get install imagemagick```
 * Radiance (pfilt, evalglare, pcond, falsecolor, ra_tiff http://www.radiance-online.org/)
 * genHDR (http://www.anyhere.com/)
 * python
@@ -45,6 +46,19 @@ sudo mv hdrgen /usr/local/bin/.
 sudo mv hdrcvt /usr/local/bin/.
 ```
 
+### Enabling the camera module (added resolution for PiCamera v2 requires 256MB GPU RAM)
+```
+sudo raspi-config
+select "7 Advanced Options"
+select "A3 Memory Split"
+Enter "256"
+Select "<Ok>"
+Select "<Finish>"
+Select "<Yes>" in answer to "Would you like to reboot now?"
+
+sudo reboot
+```
+
 ### Enabling the camera module
 ```
 sudo raspi-config
@@ -67,6 +81,8 @@ disable_camera_led=1
 
 ###Watchits:###
 * Make sure you have the python library picamera (you should)
+* Make sure that you have the camera installed correctly and on the correct port
+https://www.youtube.com/watch?time_continue=152&v=GImeVqHQzsE
 * Set the field of view variables in run_hdrcapture.bsh for your camera + lens combo
 * Make sure the path to piHDR in run_hdrcapture.bsh is valid.
 
