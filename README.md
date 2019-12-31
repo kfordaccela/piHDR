@@ -20,6 +20,7 @@ Make sure the pi is set to auto login to the user with the crontab file.
 
 ## Setting up dependencies
 Dependencies include:
+* imagemagic ```sudo apt-get install imagemagick```
 * Radiance (pfilt, evalglare, pcond, falsecolor, ra_tiff http://www.radiance-online.org/)
 * genHDR (http://www.anyhere.com/)
 * python
@@ -78,7 +79,7 @@ add the following:
 disable_camera_led=1
 ```
 
-###Watchits:###
+### Watchits: ###
 * Make sure you have the python library picamera (you should)
 * Make sure that you have the camera installed correctly and on the correct port
 https://www.youtube.com/watch?time_continue=152&v=GImeVqHQzsE
